@@ -2,70 +2,79 @@ from django import forms
 
 class Question_forms(forms.Form):
     CHOICES_find_us = [
-        ('option1', 'Facebook'),
-        ('option2', 'Instagram'),
-        ('option3', 'Indicação'),
-        ('option4', 'Outros')
+        ('Facebook', 'Facebook'),
+        ('Instagram', 'Instagram'),
+        ('Indicação', 'Indicação'),
+        ('Outros', 'Outros')
     ]
     CHOICES_location = [
-        ('option1', 'Bem Localizado'),
-        ('option2', 'Difício acesso'),
-        ('option3', 'Falta sinalização'),
-        ('option4', 'Outros')
+        ('Bem Localizado', 'Bem Localizado'),
+        ('Difício acesso', 'Difício acesso'),
+        ('Falta sinalização', 'Falta sinalização'),
+        ('Outros', 'Outros')
     ]
     CHOICES_organizacao = [
-        ('option1', 'Bem organizado e limpo'),
-        ('option2', 'Não estava organizado quando fui'),
-        ('option3', 'Achei o ambiente desorganizado e sujo'),
-        ('option4', 'Outros')
+        ('Bem organizado e limpo', 'Bem organizado e limpo'),
+        ('Não estava organizado quando fui', 'Não estava organizado quando fui'),
+        ('Achei o ambiente desorganizado e sujo', 'Achei o ambiente desorganizado e sujo'),
+        ('Outros', 'Outros')
     ]
     CHOICES_espera = [
-        ('option1', 'Fui atendida bem rápido, não precisei esperar muito.'),
-        ('option2', 'Infelizmente precisei aguardar por alguns minutos.'),
+        ('Fui atendida bem rápido, não precisei esperar muito.', 'Fui atendida bem rápido, não precisei esperar muito.'),
+        ('Infelizmente precisei aguardar por alguns minutos.', 'Infelizmente precisei aguardar por alguns minutos.'),
     ]
     
     CHOICES_atendimento = [
-        ('option1', 'Minhas dúvidas foram esclarecidas'),
-        ('option2', 'Fui orientada sobre todos os cuidados pós procedimento.'),
-        ('option3', 'Fiquei confortável e me senti segura durante o procedimento.'),
-        ('option4', 'Outros')
+        ('Minhas dúvidas foram esclarecidas', 'Minhas dúvidas foram esclarecidas'),
+        ('Fui orientada sobre todos os cuidados pós procedimento.', 'Fui orientada sobre todos os cuidados pós procedimento.'),
+        ('Fiquei confortável e me senti segura durante o procedimento.', 'Fiquei confortável e me senti segura durante o procedimento.'),
+        ('Outros', 'Outros')
     ]
-    CHOICES = [
-        ('option1', ''),
-        ('option2', ''),
-        ('option3', ''),
-        ('option4', '')
+    CHOICES_about_our_employees = [
+        ('Muito boa! São simpáticas e trabalham super bem.', 'Muito boa! São simpáticas e trabalham super bem.'),
+        ('Muitas conversas paralelas e não me senti confortável.', 'Muitas conversas paralelas e não me senti confortável.'),
     ]
-    CHOICES = [
-        ('option1', ''),
-        ('option2', ''),
-        ('option3', ''),
-        ('option4', '')
+    CHOICES_do_you_intend_to_return = [
+        ('Com certeza!', 'Com certeza!'),
+        ('Hum, acho que não.', 'Hum, acho que não.'),
+        ('Assim que possível.', 'Assim que possível.'),
     ]
 
-
-    find_us = forms.ChoiceField(
+    how_you_find_us = forms.ChoiceField(
         label="Como você nos encontrou?",
         choices=CHOICES_find_us,
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
     )
-    location = forms.ChoiceField(
+    about_our_location = forms.ChoiceField(
         label="Sobre nossa localização:",
         choices=CHOICES_location,
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
     )
-    organizacao = forms.ChoiceField(
+    About_organization_space = forms.ChoiceField(
         label="Sobre a organização do espaço:",
         choices=CHOICES_organizacao,
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
     )
-    espera = forms.ChoiceField(
+    waitin_time = forms.ChoiceField(
         label="Tempo de espera:",
         choices=CHOICES_espera,
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
     )
-    atendimento = forms.ChoiceField(
+    about_our_service = forms.ChoiceField(
         label="Sobre o atendimento:",
         choices=CHOICES_atendimento,
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
     )
+    about_our_employees = forms.ChoiceField(
+        label="Como foi sua experiência com nossas funcionárias?",
+        choices=CHOICES_about_our_employees,
+        widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
+    )
+    do_you_intend_to_return = forms.ChoiceField(
+        label="Você pretende voltar?",
+        choices=CHOICES_do_you_intend_to_return,
+        widget=forms.RadioSelect(attrs={'class': 'form-check-input'}),
+    )
+
+    # criticize_or_praise = models.CharField(max_length=500)
+    # rate = models.IntegerField()

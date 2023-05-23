@@ -1,0 +1,105 @@
+{% load static %}
+{% load bootstrap_icons %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- jquery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     
+      <!-- css -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/perfil/styles.css' %}">
+     
+      <!-- js -->
+      <script src='{% static "js/perfil/main.js" %}' language="JavaScript" type="text/javascript"></script>
+     
+      <!-- bootstrap -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+      
+      <!-- favicon -->
+      <link href="{% static 'img/favicon/AG_LOGO.png' %}" rel="icon" sizes="32x32">
+      
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>AG STUDIO | ANÁLISE</title>
+   </head>
+   <body style="background-color: #fbdbdb;">
+      <!-- content -->
+      <main>
+         <div class="container">
+            <div class="row justify-content-center mt-5">
+               <div class="col-md-6">
+                  <div class="image-container">
+                     <img src="{% static 'img/favicon/AG_LOGO.png' %}" alt=""">
+                        <div style="margin-bottom: 1rem;">
+                           <button class="btn btn-primary" style="width: 100%;" onclick="copiarURL()">Copiar URL do formulário</button>
+                           <div id="copy-done"  style="margin-top: 0.2rem; display: none;" class="card-header text-center">
+                              <span class="copiado">Copiado</span>
+                              <span class="icone">{% bs_icon 'check' size='2rem' %}</span>
+                           </div>
+                        </div>
+
+                     {% for card in cards %}
+                        <div style="margin-bottom: 0.5rem;" class="card">
+                        <div class="card-header">
+                           {{card.question}}
+                        </div>
+                        <div class="card-body">
+                           {% for value in card.values %}
+                              {{value.answer}}
+                              <div class="percentage-value" style="display:none;">{{value.percentage}}</div>
+                              <div class="progress">
+                                 {% if value.percentage > 60 %}
+                                    <!-- Condição 1 -->
+                                    <div class="progress-bar" role="progressbar" style="width: {{value.percentage}}%; background-color: #04AA6D" aria-valuenow="{{value.percentage}}" aria-valuemin="0" aria-valuemax="100">{{value.results}}</div>
+                                 {% elif value.percentage > 30 %}
+                                    <!-- Condição 2 -->
+                                    <div class="progress-bar" role="progressbar" style="width: {{value.percentage}}%; background-color: #2196F3" aria-valuenow="{{value.percentage}}" aria-valuemin="0" aria-valuemax="100">{{value.results}}</div>
+                                 {% elif value.percentage > 10 %}
+                                    <!-- Condição 3 -->
+                                    <div class="progress-bar" role="progressbar" style="width: {{value.percentage}}%; background-color: #00bcd4" aria-valuenow="{{value.percentage}}" aria-valuemin="0" aria-valuemax="100">{{value.results}}</div>
+                                 {% else %}
+                                    <!-- Condição padrão -->
+                                    <div class="progress-bar" role="progressbar" style="width: {{value.percentage}}%; background-color: #ff9800" aria-valuenow="{{value.percentage}}" aria-valuemin="0" aria-valuemax="100">{{value.results}}</div>
+                                 {% endif %}
+                              </div>
+                           {% endfor %}
+                        </div>
+                        </div>
+                     {% endfor %}
+            </div>
+         </div>
+         </div>
+      </main>
+      <footer>
+         <!-- Rodapé do site -->
+      </footer>
+   </body>
+</html>
+<script>
+   function copiarURL() {
+       var dominio = window.location.hostname;  // Obtém o domínio do URL atual
+       var url = "http://" + dominio + "{% url 'experiencia:form' %}";  // Combina o domínio com a URL
+       var inputElement = document.createElement("input");
+       inputElement.setAttribute("value", url);
+       document.body.appendChild(inputElement);
+       inputElement.select();
+       document.execCommand("copy");
+       document.body.removeChild(inputElement);
+       // Mostrar a div #copy-done
+      var copyDoneDiv = document.getElementById("copy-done");
+      copyDoneDiv.style.display = "block";
+      // copyDoneDiv.style.opacity = "0";
+
+      // Animar o aparecimento e desaparecimento da div
+      $(copyDoneDiv).fadeIn(500, function() {
+         setTimeout(function() {
+            $(copyDoneDiv).fadeOut(500);
+         }, 1000);
+      });
+
+   }
+</script>

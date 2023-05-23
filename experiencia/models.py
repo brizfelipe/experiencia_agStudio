@@ -1,15 +1,15 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 
-# Create your models here.
-class Questionario(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    how_you_find_us = models.CharField(max_length=30)
-    about_our_location = models.CharField(max_length=56)
-    About_organization_space = models.CharField(max_length=256)
-    waitin_time = models.CharField(max_length=256)
-    about_our_employees = models.CharField(max_length=256)
-    about_our_service = models.CharField(max_length=256)
-    do_you_intend_to_return = models.CharField(max_length=256)
-    criticize_or_praise = models.CharField(max_length=500)
+class Question(models.Model):
+    field = models.CharField(max_length=500)
+    question =  models.CharField(max_length=500)
+    createAt = models.DateTimeField(default=timezone.now)
+
+class Answers(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=500)
+    results = models.IntegerField(default=0,null=True)
+    percentage = models.DecimalField(default=0, max_digits=8, decimal_places=2,null=True)
+    createAt = models.DateTimeField(default=timezone.now)
+

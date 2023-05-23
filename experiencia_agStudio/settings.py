@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'experiencia',
     'users',
+    'functions',
+    'action',
     'django_bootstrap_icons',
     'widget_tweaks',
 ]
